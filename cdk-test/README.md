@@ -1,3 +1,12 @@
+# Useful commands
+
+ * `npm run build`   compile typescript to js
+ * `npm run watch`   watch for changes and compile
+ * `npm run test`    perform the jest unit tests
+ * `cdk deploy`      deploy this stack to your default AWS account/region
+ * `cdk diff`        compare deployed stack with current state
+ * `cdk synth`       emits the synthesized CloudFormation template
+
 # １. AWSCDKの基礎概念と環境構築
 
 ## はじめに
@@ -13,7 +22,7 @@ typescriptとawsそのものの解説は割愛させていただきます。
 
 ## 連載記事一覧
 
-[連載記事一覧]()
+[連載記事一覧](https://semigeek-dev.hatenablog.com/entry/2019/10/06/234902)
 
 ## 前提環境
 
@@ -97,4 +106,3 @@ $ cdk diff
 // 破壊
 $ cdk destroy
 ```
-

@@ -1,8 +1,8 @@
 {
-  "name": "chapter1",
+  "name": "cdk-test",
   "version": "0.1.0",
   "bin": {
-    "chapter1": "bin/chapter1.js"
+    "cdk-test": "bin/cdk-test.js"
   },
   "scripts": {
     "build": "tsc",
