@@ -1,18 +1,36 @@
 import cdk = require('@aws-cdk/core');
-import ec2 = require('@aws-cdk/aws-ec2')
-import { Bucket } from "@aws-cdk/aws-s3"
+import ec2 = require("@aws-cdk/aws-ec2");
+import ecs = require("@aws-cdk/aws-ecs");
+import ecs_patterns = require("@aws-cdk/aws-ecs-patterns");
 
 export class CdkTestStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new ec2.Vpc(this, "CdkTest", {
-      maxAzs: 3
+    const vpc = new ec2.Vpc(this, "CdkTestVpc", {
+      maxAzs: 2
     });
 
-    // Create S3 Bucket
-    new Bucket(this, id, {
-      bucketName: "ishizuka-bucket",
+    const cluster = new ecs.Cluster(this, "CdkTestCluster", {
+      vpc: vpc
+    });
+
+    const taskDefinition = new ecs.FargateTaskDefinition(this, 'taskDefinition');
+    const container = taskDefinition.addContainer('CdkTestContainer', {
+      image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
+    });
+    container.addPortMappings({
+      containerPort: 80
+    });
+
+    new ecs_patterns.ApplicationLoadBalancedFargateService(this, "CdkTestFargateService", {
+      cluster: cluster,
+      cpu: 512,
+      desiredCount: 1,
+      memoryLimitMiB: 1024,
+      publicLoadBalancer: true,
+      taskDefinition: taskDefinition
     })
+
   }
 }
