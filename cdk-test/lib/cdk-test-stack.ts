@@ -12,12 +12,13 @@ export class CdkTestStack extends cdk.Stack {
     });
 
     const cluster = new ecs.Cluster(this, "CdkTestCluster", {
-      vpc: vpc
+      vpc: vpc,
+      clusterName: 'CdkTestCluster',
     });
 
-    const taskDefinition = new ecs.FargateTaskDefinition(this, 'taskDefinition');
+    const taskDefinition = new ecs.FargateTaskDefinition(this, 'TaskDefinition');
     const container = taskDefinition.addContainer('CdkTestContainer', {
-      image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
+      image: ecs.ContainerImage.fromRegistry('amazon/amazon-ecs-sample'),
     });
     container.addPortMappings({
       containerPort: 80
