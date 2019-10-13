@@ -29,7 +29,6 @@ export class CdkTestStack extends cdk.Stack {
       cpu: 512,
       desiredCount: 1,
       memoryLimitMiB: 1024,
-      publicLoadBalancer: true,
       taskDefinition: taskDefinition
     })
 
